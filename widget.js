@@ -51,7 +51,6 @@ class Bar {
     if (this.options.position === 'top') {
       this.modalContainer.style.position = 'relative';
       this.modalContainer.style.top = 0;
-      this.modalContainer.style.transition = 'height 0.5s ease';
     } else {
       this.modalContainer.style.position = 'absolute';
       this.modalContainer.style.bottom = 0;
