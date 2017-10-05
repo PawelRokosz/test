@@ -1,37 +1,66 @@
-let div1 = document.createElement('div');
-let div2 = document.createElement('div');
-let text1 = document.createTextNode('Top');
-let text2 = document.createTextNode('Bottom');
+const container = document.createElement('div');
+const div1 = document.createElement('div');
+const div2 = document.createElement('div');
+const text1 = document.createTextNode('Top');
+const text2 = document.createTextNode('Bottom');
 
-div1.style.width = '100px';
-div1.style.height = '100px';
-div1.style.background = 'red';
-div1.style.marginRight = '10px';
+class Modal {
+  constructor() {
+    this.modalContainer = document.createElement('div');
+    this.modalContainer.classList.add('modal');
+    document.body.appendChild(this.modalContainer);
 
-div2.style.width = '100px';
-div2.style.height = '100px';
-div2.style.background = 'green';
+    const closeButton = document.createElement('button');
+    closeButton.classList.add('close-button');
+    this.modalContainer.appendChild(closeButton);
+    const closeText = document.createTextNode('x');
+    closeButton.appendChild(closeText);
 
-div1.appendChild(text1);
-div2.appendChild(text2);
+    closeButton.addEventListener('click', this.close.bind(this));
 
-document.body.style.display = 'flex';
-document.body.style.justifyContent = 'center';
-document.body.style.alignItems = 'center';
-document.body.style.height = '100vh';
-document.body.style.margin = '0';
-document.body.style.padding = '0';
+    this.content = document.createElement('div');
+    this.modalContainer.appendChild(this.content);
+  }
 
-document.body.appendChild(div1);
-document.body.appendChild(div2);
+  set html (value) {
+    this.content.innerHTML = value;
+  }
+
+  open () {
+    this.modalContainer.classList.add('open');
+  }
+
+  close () {
+    this.modalContainer.classList.remove('open');
+  }
+}
+
+let m = new Modal();
 
 showTopBar = () => {
   console.log('top');
+  m.html = `msg here - Top bar`;
+  m.open();
 }
 
 showBottomBar = () => {
   console.log('bottom');
+  m.html = `msg here - Bottom bar`;
+  m.open();
 }
+
+container.classList.add('container');
+
+div1.classList.add('div1');
+div2.classList.add('div2');
+
+div1.appendChild(text1);
+div2.appendChild(text2);
+
+container.appendChild(div1);
+container.appendChild(div2);
+
+document.body.appendChild(container);
 
 div1.addEventListener('click', showTopBar);
 div2.addEventListener('click', showBottomBar);
